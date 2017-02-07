@@ -76,19 +76,20 @@ extern size_t StringBuilder_getSize(StringBuilder *ptr);
 #define CMAP_TYPE_PTR 3
 #define CMAP_TYPE_LESS_THAN_DIS 4
 
-#define CMAP_ERROR_NO_NULL_PTR 1
+#define CMAP_ERROR_NULL_PTR 1
 #define CMAP_ERROR_WRONG_KEY_TYPE 2
 #define CMAP_ERROR_WRONG_ELEMENT_TYPE 3
 extern const char const *MAP_ERROR_MSG[];
 struct Map_ele_structure{
-	union key{
-		double dval;
-		char *sval;
-		long lval;
-	}
 	union{
-			void *pval;
-			char *sval;
+		double dval;
+		const char *sval;
+		const void *pval;
+		long lval;
+	}key;
+	union{
+			const void *pval;
+			const char *sval;
 			double dval;
 			long lval;
 	}val;
@@ -97,28 +98,45 @@ struct Map_ele_structure{
 };
 typedef struct Map_structure{
     unsigned char type; /*First 4 bit is for key, last 4 bit for value*/
+		size_t size;
 		short int errno;
 		char *errmsg;
-    struct Map_ele_structure *head;
+		/*function for compare expexted to return negative value when first arg < second arg. When it is same it shold return 0*/
+		/*when key is void * or char *, argument will be pointer to pointer like char ** */
+		/*example:
+		 int comp_func(void *arg1,void *arg12){
+		 	return strcmp( *((char **)arg1),
+												*((char **)arg2) );
+	 	 }*/
+		int (*comp_func)(void *,void*);
+    struct Map_ele_structure *node;
+		ArrayList *duplicated_list;
 }cMap;
 const struct cMap_element_types_structure{
-	char Pointer = CMAP_TYPE_PTR;
-	char String = CMAP_TYPE_STR;
-	char Integer = CMAP_TYPE_LONG;
-	char Double = CMAP_TYPE_DOUBLE;
-}cMapTypes;
+	char Pointer;
+	char String;
+	char Integer;
+	char Double;
+}cMapTypes = {
+	 CMAP_TYPE_PTR,CMAP_TYPE_STR,CMAP_TYPE_LONG,CMAP_TYPE_DOUBLE
+};
+
 extern cMap * new_cMap(int keytype,int element_type);
 extern void cMap_free(cMap *);
-/*ptr only*/
-extern void cMap_setcmp(int (func)(void *,void*));
+extern void cMap_set_cmp(int (*func)(void *,void*));
 extern void cMap_set_error(cMap *map,int error_type);
-
+extern int cMap_check_errot(cMap *map);
 extern int cMap_set_real(cMap *map,void *,void *);
-/*change kee and value to void pointer */
+extern size_t cMap_get_size(cMap *);
+extern ArrayList * cMap_toArrayList(cMap *);
+extern ArrayList * cMap_get_key_list(cMap *);
+extern ArrayList * cMap_get_duplicated_key_list(cMap *);
+extern ArrayList * cMap_get_duplicated_value_list(cMap *);
+
 #ifndef __GNUC__
 #warning it is reccomended to compile seecon with gcc.
 #define cMap_set(map_ptr,cmap_kee,cmap_ele) ( (cMap_set_real(map_ptr,&(cmap_kee),&(cmap_ele) )))
-#elif __GNUC__ >= 4.9
+#elif __GNUC__ >= 4 && __GNUC_MINOR__ >= 9
 
 #define cMap_set(map_ptr,cmap_kee,cmap_ele) { \
 	char cmap_type_indentify = 0; \
@@ -161,13 +179,13 @@ extern struct Map_ele_structure * _cMap_get_str(cMap *,const char *str);
 	: cmap_get_value_ptr->type & 0x0f == CMAP_TYPE_PTR \
 		? cmap_ele_ptr->val.pval \
 )
-#define cMap_get(cmap_get_ptr,cmap_get_kee) _Generic(cmap_get_kee,
-	const char * : CMAP_GET_VALUE(cmap_get_ptr,_cMap_get_str(cmap_get_ptr,cmap_get_kee)),
-	int          : CMAP_GET_VALUE(cmap_get_ptr,_cMap_get_long(cmap_get_ptr,cmap_get_kee)),
-	long         : CMAP_GET_VALUE(cmap_get_ptr,_cMap_get_long(cmap_get_ptr,cmap_get_kee)),
-	float        : CMAP_GET_VALUE(cmap_get_ptr,_cMap_get_double(cmap_get_ptr,cmap_get_kee)),
-	double       : CMAP_GET_VALUE(cmap_get_ptr,_cMap_get_double(cmap_get_ptr,cmap_get_kee)),
-	default      : CMAP_GET_VALUE(cmap_get_ptr,_cMap_get_ptr(cmap_get_ptr,cmap_get_kee))
+#define cMap_get(cmap_get_ptr,cmap_get_kee) _Generic(cmap_get_kee, \
+	char *   : CMAP_GET_VALUE(cmap_get_ptr,_cMap_get_str(cmap_get_ptr,cmap_get_kee)), \
+	int      : CMAP_GET_VALUE(cmap_get_ptr,_cMap_get_long(cmap_get_ptr,cmap_get_kee)), \
+	long     : CMAP_GET_VALUE(cmap_get_ptr,_cMap_get_long(cmap_get_ptr,cmap_get_kee)), \
+	float    : CMAP_GET_VALUE(cmap_get_ptr,_cMap_get_double(cmap_get_ptr,cmap_get_kee)), \
+	double   : CMAP_GET_VALUE(cmap_get_ptr,_cMap_get_double(cmap_get_ptr,cmap_get_kee)), \
+	default  : CMAP_GET_VALUE(cmap_get_ptr,_cMap_get_ptr(cmap_get_ptr,cmap_get_kee)) \
 )
 /*internal*/
 

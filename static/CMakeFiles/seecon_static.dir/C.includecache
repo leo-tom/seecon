@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/leo/src/seecon/ArrayList.c
+seecon.h
+/home/leo/src/seecon/seecon.h
+
+/home/leo/src/seecon/seecon.h
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+

@@ -1,0 +1,2 @@
+/usr/bin/ar cr libseecon_static.a  CMakeFiles/seecon_static.dir/__/ArrayList.c.o
+/usr/bin/ranlib libseecon_static.a
