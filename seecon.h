@@ -70,23 +70,105 @@ extern void StringBuilder_append_str(StringBuilder *ptr,const char *str);
 extern char * StringBuilder_toString(StringBuilder *ptr);
 extern size_t StringBuilder_getSize(StringBuilder *ptr);
 
-#define STRMAP_TYPE_PTR 1
-#define STRMAP_TYPE_STRING 2
-#define STRMAP_TYPE_DOUBLE 3
-#define STRMAP_TYPE_LONG 4
-struct StrMap_ele_structure{
-    char *key;
-    union{
-        void *pval;
-        char *sval;
-        double dval;
-        long lval;
-    }val;
-    struct StrMap_ele_structure *less;
-    struct StrMap_ele_structure *greater;
+#define CMAP_TYPE_STR 0
+#define CMAP_TYPE_LONG 1
+#define CMAP_TYPE_DOUBLE 2
+#define CMAP_TYPE_PTR 3
+#define CMAP_TYPE_LESS_THAN_DIS 4
+
+#define CMAP_ERROR_NO_NULL_PTR 1
+#define CMAP_ERROR_WRONG_KEY_TYPE 2
+#define CMAP_ERROR_WRONG_ELEMENT_TYPE 3
+extern const char const *MAP_ERROR_MSG[];
+struct Map_ele_structure{
+	union key{
+		double dval;
+		char *sval;
+		long lval;
+	}
+	union{
+			void *pval;
+			char *sval;
+			double dval;
+			long lval;
+	}val;
+	struct Map_ele_structure *less;
+	struct Map_ele_structure *greater;
 };
-typedef struct StrMap_structure{
-    int type;
-    struct StrMap_ele_structure *head;
-}StrMap;
+typedef struct Map_structure{
+    unsigned char type; /*First 4 bit is for key, last 4 bit for value*/
+		short int errno;
+		char *errmsg;
+    struct Map_ele_structure *head;
+}cMap;
+const struct cMap_element_types_structure{
+	char Pointer = CMAP_TYPE_PTR;
+	char String = CMAP_TYPE_STR;
+	char Integer = CMAP_TYPE_LONG;
+	char Double = CMAP_TYPE_DOUBLE;
+}cMapTypes;
+extern cMap * new_cMap(int keytype,int element_type);
+extern void cMap_free(cMap *);
+/*ptr only*/
+extern void cMap_setcmp(int (func)(void *,void*));
+extern void cMap_set_error(cMap *map,int error_type);
+
+extern int cMap_set_real(cMap *map,void *,void *);
+/*change kee and value to void pointer */
+#ifndef __GNUC__
+#warning it is reccomended to compile seecon with gcc.
+#define cMap_set(map_ptr,cmap_kee,cmap_ele) ( (cMap_set_real(map_ptr,&(cmap_kee),&(cmap_ele) )))
+#elif __GNUC__ >= 4.9
+
+#define cMap_set(map_ptr,cmap_kee,cmap_ele) { \
+	char cmap_type_indentify = 0; \
+	_Generic(cmap_kee, \
+		char * : cmap_type_indentify &= CMAP_TYPE_STR << 4 , \
+		long   : cmap_type_indentify &= CMAP_TYPE_LONG << 4 , \
+		double : cmap_type_indentify &= CMAP_TYPE_DOUBLE << 4 , \
+		default : cmap_type_indentify &= CMAP_TYPE_DOUBLE << 4 \
+	) \
+	_Generic(cmap_ele, \
+		char * : cmap_type_indentify &= CMAP_TYPE_STR , \
+		long   : cmap_type_indentify &= CMAP_TYPE_LONG , \
+		double : cmap_type_indentify &= CMAP_TYPE_DOUBLE , \
+		default : cmap_type_indentify &= CMAP_TYPE_DOUBLE \
+	) \
+	if(cmap_type_indentify & 0xf0 != map_ptr->type & 0xf0){ \
+		cMap_set_error(map_ptr,CMAP_ERROR_WRONG_KEY_TYPE); \
+	}else if( cmap_type_indentify & 0xf0 !=  map_ptr->type & 0xf0){ \
+		cMap_set_error(map_ptr,CMAP_ERROR_WRONG_ELEMENT_TYPE); \
+	}else{ \
+		cMap_set_real(map_ptr,&(cmap_kee),&(cmap_ele)); \
+	} \
+}
+#else
+#warning better to have gcc version of >= 4.9 but compiling anyways
+#define cMap_set(map_ptr,cmap_kee,cmap_ele) ( (cMap_set_real(map_ptr,&(cmap_kee),&(cmap_ele) )))
+#endif
+
+extern struct Map_ele_structure * _cMap_get_long(cMap *,long lval);
+extern struct Map_ele_structure * _cMap_get_double(cMap *,double dval);
+extern struct Map_ele_structure * _cMap_get_ptr(cMap *,const void *ptr);
+extern struct Map_ele_structure * _cMap_get_str(cMap *,const char *str);
+#define CMAP_GET_VALUE(cmap_get_value_ptr,cmap_ele_ptr) ( \
+	cmap_get_value_ptr->type & 0x0f == CMAP_TYPE_LONG \
+		? cmap_ele_ptr->val.lval \
+	: cmap_get_value_ptr->type & 0x0f == CMAP_TYPE_STR \
+		? cmap_ele_ptr->val.sval \
+	: cmap_get_value_ptr->type & 0x0f == CMAP_TYPE_DOUBLE \
+		? cmap_ele_ptr->val.dval \
+	: cmap_get_value_ptr->type & 0x0f == CMAP_TYPE_PTR \
+		? cmap_ele_ptr->val.pval \
+)
+#define cMap_get(cmap_get_ptr,cmap_get_kee) _Generic(cmap_get_kee,
+	const char * : CMAP_GET_VALUE(cmap_get_ptr,_cMap_get_str(cmap_get_ptr,cmap_get_kee)),
+	int          : CMAP_GET_VALUE(cmap_get_ptr,_cMap_get_long(cmap_get_ptr,cmap_get_kee)),
+	long         : CMAP_GET_VALUE(cmap_get_ptr,_cMap_get_long(cmap_get_ptr,cmap_get_kee)),
+	float        : CMAP_GET_VALUE(cmap_get_ptr,_cMap_get_double(cmap_get_ptr,cmap_get_kee)),
+	double       : CMAP_GET_VALUE(cmap_get_ptr,_cMap_get_double(cmap_get_ptr,cmap_get_kee)),
+	default      : CMAP_GET_VALUE(cmap_get_ptr,_cMap_get_ptr(cmap_get_ptr,cmap_get_kee))
+)
+/*internal*/
+
 #endif
