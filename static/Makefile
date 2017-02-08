@@ -181,6 +181,30 @@ __/ArrayList.c.s:
 	cd /home/leo/src/seecon && $(MAKE) -f static/CMakeFiles/seecon_static.dir/build.make static/CMakeFiles/seecon_static.dir/__/ArrayList.c.s
 .PHONY : __/ArrayList.c.s
 
+__/Map.o: __/Map.c.o
+.PHONY : __/Map.o
+
+# target to build an object file
+__/Map.c.o:
+	cd /home/leo/src/seecon && $(MAKE) -f static/CMakeFiles/seecon_static.dir/build.make static/CMakeFiles/seecon_static.dir/__/Map.c.o
+.PHONY : __/Map.c.o
+
+__/Map.i: __/Map.c.i
+.PHONY : __/Map.i
+
+# target to preprocess a source file
+__/Map.c.i:
+	cd /home/leo/src/seecon && $(MAKE) -f static/CMakeFiles/seecon_static.dir/build.make static/CMakeFiles/seecon_static.dir/__/Map.c.i
+.PHONY : __/Map.c.i
+
+__/Map.s: __/Map.c.s
+.PHONY : __/Map.s
+
+# target to generate assembly for a file
+__/Map.c.s:
+	cd /home/leo/src/seecon && $(MAKE) -f static/CMakeFiles/seecon_static.dir/build.make static/CMakeFiles/seecon_static.dir/__/Map.c.s
+.PHONY : __/Map.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -197,6 +221,9 @@ help:
 	@echo "... __/ArrayList.o"
 	@echo "... __/ArrayList.i"
 	@echo "... __/ArrayList.s"
+	@echo "... __/Map.o"
+	@echo "... __/Map.i"
+	@echo "... __/Map.s"
 .PHONY : help
 
 

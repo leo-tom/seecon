@@ -12,23 +12,11 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeLists.txt"
   "dynamic/CMakeLists.txt"
   "static/CMakeLists.txt"
-  "/usr/share/cmake-3.0/Modules/CMakeCCompiler.cmake.in"
-  "/usr/share/cmake-3.0/Modules/CMakeCCompilerABI.c"
+  "test/CMakeLists.txt"
   "/usr/share/cmake-3.0/Modules/CMakeCInformation.cmake"
   "/usr/share/cmake-3.0/Modules/CMakeCommonLanguageInclude.cmake"
-  "/usr/share/cmake-3.0/Modules/CMakeDetermineCCompiler.cmake"
-  "/usr/share/cmake-3.0/Modules/CMakeDetermineCompiler.cmake"
-  "/usr/share/cmake-3.0/Modules/CMakeDetermineCompilerABI.cmake"
-  "/usr/share/cmake-3.0/Modules/CMakeDetermineCompilerId.cmake"
-  "/usr/share/cmake-3.0/Modules/CMakeDetermineSystem.cmake"
-  "/usr/share/cmake-3.0/Modules/CMakeFindBinUtils.cmake"
   "/usr/share/cmake-3.0/Modules/CMakeGenericSystem.cmake"
-  "/usr/share/cmake-3.0/Modules/CMakeParseImplicitLinkInfo.cmake"
-  "/usr/share/cmake-3.0/Modules/CMakeSystem.cmake.in"
   "/usr/share/cmake-3.0/Modules/CMakeSystemSpecificInformation.cmake"
-  "/usr/share/cmake-3.0/Modules/CMakeTestCCompiler.cmake"
-  "/usr/share/cmake-3.0/Modules/CMakeTestCompilerCommon.cmake"
-  "/usr/share/cmake-3.0/Modules/CMakeUnixFindMake.cmake"
   "/usr/share/cmake-3.0/Modules/Compiler/GNU-C.cmake"
   "/usr/share/cmake-3.0/Modules/Compiler/GNU.cmake"
   "/usr/share/cmake-3.0/Modules/Platform/Linux-GNU-C.cmake"
@@ -45,16 +33,15 @@ set(CMAKE_MAKEFILE_OUTPUTS
 
 # Byproducts of CMake generate step:
 set(CMAKE_MAKEFILE_PRODUCTS
-  "CMakeFiles/3.0.2/CMakeSystem.cmake"
-  "CMakeFiles/3.0.2/CMakeCCompiler.cmake"
-  "CMakeFiles/3.0.2/CMakeCCompiler.cmake"
   "CMakeFiles/CMakeDirectoryInformation.cmake"
   "static/CMakeFiles/CMakeDirectoryInformation.cmake"
   "dynamic/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "test/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "static/CMakeFiles/seecon_static.dir/DependInfo.cmake"
   "dynamic/CMakeFiles/seecon.dir/DependInfo.cmake"
+  "test/CMakeFiles/seecon_test.dir/DependInfo.cmake"
   )

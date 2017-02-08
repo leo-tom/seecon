@@ -1,1 +1,1 @@
-/usr/bin/cc  -fPIC    -shared -Wl,-soname,libseecon.so -o libseecon.so CMakeFiles/seecon.dir/__/ArrayList.c.o 
+/usr/bin/cc  -fPIC -g -ggdb   -shared -Wl,-soname,libseecon.so -o libseecon.so CMakeFiles/seecon.dir/__/ArrayList.c.o CMakeFiles/seecon.dir/__/Map.c.o 

@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 include_directories("$PROJECT_SOURCE_DIR")
-project(seecon_static C)
-add_library(seecon_static STATIC ../ArrayList.c ../Map.c)
+project(seecon_test C)
+add_executable(seecon_test test.c)
 set(CMAKE_C_FLAGS "-g -ggdb")
+target_link_libraries(seecon_test seecon_static)

@@ -114,14 +114,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/leo/src/seecon/CMakeFiles /home/leo/src/seecon/CMakeFiles/progress.marks
-	$(MAKE) -f CMakeFiles/Makefile2 all
+	cd /home/leo/src/seecon && $(CMAKE_COMMAND) -E cmake_progress_start /home/leo/src/seecon/CMakeFiles /home/leo/src/seecon/test/CMakeFiles/progress.marks
+	cd /home/leo/src/seecon && $(MAKE) -f CMakeFiles/Makefile2 test/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/leo/src/seecon/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	$(MAKE) -f CMakeFiles/Makefile2 clean
+	cd /home/leo/src/seecon && $(MAKE) -f CMakeFiles/Makefile2 test/clean
 .PHONY : clean
 
 # The main clean target
@@ -130,57 +130,56 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	$(MAKE) -f CMakeFiles/Makefile2 preinstall
+	cd /home/leo/src/seecon && $(MAKE) -f CMakeFiles/Makefile2 test/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	$(MAKE) -f CMakeFiles/Makefile2 preinstall
+	cd /home/leo/src/seecon && $(MAKE) -f CMakeFiles/Makefile2 test/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	$(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/leo/src/seecon && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
-#=============================================================================
-# Target rules for targets named seecon_static
+# Convenience name for target.
+test/CMakeFiles/seecon_test.dir/rule:
+	cd /home/leo/src/seecon && $(MAKE) -f CMakeFiles/Makefile2 test/CMakeFiles/seecon_test.dir/rule
+.PHONY : test/CMakeFiles/seecon_test.dir/rule
 
-# Build rule for target.
-seecon_static: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 seecon_static
-.PHONY : seecon_static
-
-# fast build rule for target.
-seecon_static/fast:
-	$(MAKE) -f static/CMakeFiles/seecon_static.dir/build.make static/CMakeFiles/seecon_static.dir/build
-.PHONY : seecon_static/fast
-
-#=============================================================================
-# Target rules for targets named seecon
-
-# Build rule for target.
-seecon: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 seecon
-.PHONY : seecon
-
-# fast build rule for target.
-seecon/fast:
-	$(MAKE) -f dynamic/CMakeFiles/seecon.dir/build.make dynamic/CMakeFiles/seecon.dir/build
-.PHONY : seecon/fast
-
-#=============================================================================
-# Target rules for targets named seecon_test
-
-# Build rule for target.
-seecon_test: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 seecon_test
+# Convenience name for target.
+seecon_test: test/CMakeFiles/seecon_test.dir/rule
 .PHONY : seecon_test
 
 # fast build rule for target.
 seecon_test/fast:
-	$(MAKE) -f test/CMakeFiles/seecon_test.dir/build.make test/CMakeFiles/seecon_test.dir/build
+	cd /home/leo/src/seecon && $(MAKE) -f test/CMakeFiles/seecon_test.dir/build.make test/CMakeFiles/seecon_test.dir/build
 .PHONY : seecon_test/fast
+
+test.o: test.c.o
+.PHONY : test.o
+
+# target to build an object file
+test.c.o:
+	cd /home/leo/src/seecon && $(MAKE) -f test/CMakeFiles/seecon_test.dir/build.make test/CMakeFiles/seecon_test.dir/test.c.o
+.PHONY : test.c.o
+
+test.i: test.c.i
+.PHONY : test.i
+
+# target to preprocess a source file
+test.c.i:
+	cd /home/leo/src/seecon && $(MAKE) -f test/CMakeFiles/seecon_test.dir/build.make test/CMakeFiles/seecon_test.dir/test.c.i
+.PHONY : test.c.i
+
+test.s: test.c.s
+.PHONY : test.s
+
+# target to generate assembly for a file
+test.c.s:
+	cd /home/leo/src/seecon && $(MAKE) -f test/CMakeFiles/seecon_test.dir/build.make test/CMakeFiles/seecon_test.dir/test.c.s
+.PHONY : test.c.s
 
 # Help Target
 help:
@@ -194,9 +193,10 @@ help:
 	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
-	@echo "... seecon_static"
-	@echo "... seecon"
 	@echo "... seecon_test"
+	@echo "... test.o"
+	@echo "... test.i"
+	@echo "... test.s"
 .PHONY : help
 
 
@@ -208,6 +208,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	$(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/leo/src/seecon && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

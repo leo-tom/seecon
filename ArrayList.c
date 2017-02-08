@@ -1,6 +1,5 @@
 #include "seecon.h"
 
-
 /*Returns integer represent type of element this array list can have*/
 int checkTypeArrayList(ArrayList *ptr){
 	return ptr->flag & (ARRAYLIST_ET_FLOAT | ARRAYLIST_ET_INT | ARRAYLIST_ET_PTR );
@@ -482,6 +481,7 @@ void StringBuilder_append_str(StringBuilder *ptr,const char *str){
     ele->type = STRINGBUILDER_TYPE_STR;
     ele->val.str = malloc(size);
     ele->size = size;
+		ele->next = NULL;
     strcpy(ele->val.str,str);
     StringBuilder_append(ptr,ele);
 }
@@ -497,17 +497,15 @@ char * StringBuilder_toString(StringBuilder *ptr){
         if(ele->type == STRINGBUILDER_TYPE_CHAR){
             *buff++ = ele->val.c;
         }else{
-            size_t cou;
-            size_t to = ele->size;
             char *str = ele->val.str;
-            for(cou = 0;cou < to;cou++){
+            while(*str){
                 *buff++ = *str++;
             }
         }
         ele = ele->next;
     }
     *buff = 0;
-    return buff;
+    return buff_head;
 }
 void StringBuilder_free(StringBuilder *builder){
     struct StringBuilder_ele *ele = builder->head;
@@ -520,7 +518,6 @@ void StringBuilder_free(StringBuilder *builder){
             free(ele->val.str);
             free(ele);
         }
-        free(ele);
         ele = tmp;
     }
     free(builder);

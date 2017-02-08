@@ -1,2 +1,3 @@
 /home/leo/src/seecon/dynamic/CMakeFiles/seecon.dir
 /home/leo/src/seecon/static/CMakeFiles/seecon_static.dir
+/home/leo/src/seecon/test/CMakeFiles/seecon_test.dir

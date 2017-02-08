@@ -9,9 +9,9 @@
 #define ARRAYLIST_ET_INT   (1 << 1)
 #define ARRAYLIST_ET_FLOAT (1 << 2)
 #define ARRAYLIST_ERROR    (1 << 3)
-const char ARRAYLIST_ER_MSG_MALLOC[] = "Failed to allocate memory.";
-const char ARRAYLIST_ER_MSG_OUTOFRANGE[] = "Out of range.";
-const char ARRAYLIST_ER_MSG_WRONG_VARIABLE[] = "This ArrayList is not initialized for this variable type.";
+#define ARRAYLIST_ER_MSG_MALLOC  "Failed to allocate memory.";
+#define ARRAYLIST_ER_MSG_OUTOFRANGE  "Out of range.";
+#define ARRAYLIST_ER_MSG_WRONG_VARIABLE  "This ArrayList is not initialized for this variable type.";
 #define ArrayListGetSize(PointerOfArrayList)  (PointerOfArrayList->size)
 #define CHECK_ARRAYLIST_VARIABLE_TYPE(PointerOfArrayList,FLAGU) (PointerOfArrayList->flag & FLAGU)
 struct ArrayElement{
@@ -112,21 +112,19 @@ typedef struct Map_structure{
     struct Map_ele_structure *node;
 		ArrayList *duplicated_list;
 }cMap;
-const struct cMap_element_types_structure{
+extern const struct cMap_element_types_structure{
 	char Pointer;
 	char String;
 	char Integer;
 	char Double;
-}cMapTypes = {
-	 CMAP_TYPE_PTR,CMAP_TYPE_STR,CMAP_TYPE_LONG,CMAP_TYPE_DOUBLE
-};
+}cMapTypes;
 
 extern cMap * new_cMap(int keytype,int element_type);
 extern void cMap_free(cMap *);
-extern void cMap_set_cmp(int (*func)(void *,void*));
+extern void cMap_set_cmp(cMap *map,int (*func)(void *,void*));
 extern void cMap_set_error(cMap *map,int error_type);
-extern int cMap_check_errot(cMap *map);
-extern int cMap_set_real(cMap *map,void *,void *);
+extern int cMap_check_error(cMap *map);
+extern int cMap_set_real(cMap *map,const void *,const void *);
 extern size_t cMap_get_size(cMap *);
 extern ArrayList * cMap_toArrayList(cMap *);
 extern ArrayList * cMap_get_key_list(cMap *);

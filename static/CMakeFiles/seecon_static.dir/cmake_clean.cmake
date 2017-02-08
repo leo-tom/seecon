@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/seecon_static.dir/__/ArrayList.c.o"
+  "CMakeFiles/seecon_static.dir/__/Map.c.o"
   "libseecon_static.pdb"
   "libseecon_static.a"
 )

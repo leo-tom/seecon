@@ -74,7 +74,7 @@ static/preinstall:
 static/CMakeFiles/seecon_static.dir/all:
 	$(MAKE) -f static/CMakeFiles/seecon_static.dir/build.make static/CMakeFiles/seecon_static.dir/depend
 	$(MAKE) -f static/CMakeFiles/seecon_static.dir/build.make static/CMakeFiles/seecon_static.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/leo/src/seecon/CMakeFiles  2
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/leo/src/seecon/CMakeFiles  3 4
 	@echo "Built target seecon_static"
 .PHONY : static/CMakeFiles/seecon_static.dir/all
 
@@ -84,7 +84,7 @@ all: static/CMakeFiles/seecon_static.dir/all
 
 # Build rule for subdir invocation for target.
 static/CMakeFiles/seecon_static.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/leo/src/seecon/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/leo/src/seecon/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 static/CMakeFiles/seecon_static.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/leo/src/seecon/CMakeFiles 0
 .PHONY : static/CMakeFiles/seecon_static.dir/rule
@@ -124,7 +124,7 @@ dynamic/preinstall:
 dynamic/CMakeFiles/seecon.dir/all:
 	$(MAKE) -f dynamic/CMakeFiles/seecon.dir/build.make dynamic/CMakeFiles/seecon.dir/depend
 	$(MAKE) -f dynamic/CMakeFiles/seecon.dir/build.make dynamic/CMakeFiles/seecon.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/leo/src/seecon/CMakeFiles  1
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/leo/src/seecon/CMakeFiles  1 2
 	@echo "Built target seecon"
 .PHONY : dynamic/CMakeFiles/seecon.dir/all
 
@@ -134,7 +134,7 @@ all: dynamic/CMakeFiles/seecon.dir/all
 
 # Build rule for subdir invocation for target.
 dynamic/CMakeFiles/seecon.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/leo/src/seecon/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/leo/src/seecon/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 dynamic/CMakeFiles/seecon.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/leo/src/seecon/CMakeFiles 0
 .PHONY : dynamic/CMakeFiles/seecon.dir/rule
@@ -150,6 +150,56 @@ dynamic/CMakeFiles/seecon.dir/clean:
 
 # clean rule for target.
 clean: dynamic/CMakeFiles/seecon.dir/clean
+.PHONY : clean
+
+#=============================================================================
+# Directory level rules for directory test
+
+# Convenience name for "all" pass in the directory.
+test/all: test/CMakeFiles/seecon_test.dir/all
+.PHONY : test/all
+
+# Convenience name for "clean" pass in the directory.
+test/clean: test/CMakeFiles/seecon_test.dir/clean
+.PHONY : test/clean
+
+# Convenience name for "preinstall" pass in the directory.
+test/preinstall:
+.PHONY : test/preinstall
+
+#=============================================================================
+# Target rules for target test/CMakeFiles/seecon_test.dir
+
+# All Build rule for target.
+test/CMakeFiles/seecon_test.dir/all: static/CMakeFiles/seecon_static.dir/all
+	$(MAKE) -f test/CMakeFiles/seecon_test.dir/build.make test/CMakeFiles/seecon_test.dir/depend
+	$(MAKE) -f test/CMakeFiles/seecon_test.dir/build.make test/CMakeFiles/seecon_test.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/leo/src/seecon/CMakeFiles  5
+	@echo "Built target seecon_test"
+.PHONY : test/CMakeFiles/seecon_test.dir/all
+
+# Include target in all.
+all: test/CMakeFiles/seecon_test.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+test/CMakeFiles/seecon_test.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/leo/src/seecon/CMakeFiles 3
+	$(MAKE) -f CMakeFiles/Makefile2 test/CMakeFiles/seecon_test.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/leo/src/seecon/CMakeFiles 0
+.PHONY : test/CMakeFiles/seecon_test.dir/rule
+
+# Convenience name for target.
+seecon_test: test/CMakeFiles/seecon_test.dir/rule
+.PHONY : seecon_test
+
+# clean rule for target.
+test/CMakeFiles/seecon_test.dir/clean:
+	$(MAKE) -f test/CMakeFiles/seecon_test.dir/build.make test/CMakeFiles/seecon_test.dir/clean
+.PHONY : test/CMakeFiles/seecon_test.dir/clean
+
+# clean rule for target.
+clean: test/CMakeFiles/seecon_test.dir/clean
 .PHONY : clean
 
 #=============================================================================
